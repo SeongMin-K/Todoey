@@ -11,6 +11,7 @@ import RealmSwift
 import ChameleonFramework
 
 class TodoListViewController: SwipeTableViewController {
+    @IBOutlet weak var searchBar: UISearchBar!
     let realm = try! Realm()
     var todoItems: Results<Item>?
     
@@ -24,6 +25,21 @@ class TodoListViewController: SwipeTableViewController {
         super.viewDidLoad()
         
         tableView.separatorStyle = .none
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let safeCategory = selectedCategory {
+            title = safeCategory.name
+            
+            if let categoryColor = UIColor(hexString: safeCategory.color) {
+                updateNavBarColor(categoryColor)
+                
+                searchBar.barTintColor = categoryColor
+                searchBar.searchTextField.backgroundColor = FlatWhite()
+            }
+        }
     }
 
     //MARK: - TableView Datasource Methods

@@ -17,12 +17,17 @@ class CategoryViewController: SwipeTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let backBarButtonItem = UIBarButtonItem(title: "Category", style: .plain, target: self, action: nil)
-        backBarButtonItem.tintColor = .white
-        navigationItem.backBarButtonItem = backBarButtonItem
         tableView.separatorStyle = .none
         
         loadCategories()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let navBarBackgroundColor = UIColor(hexString: "1D9BF6") {
+            updateNavBarColor(navBarBackgroundColor)
+        }
     }
     
     //MARK: - TableView DataSource Methods
